@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        {% import "./templates/blocks.njk" as b %}
+        {% extends "./templates/layout.njk" %}
+        {% block header %}{% endblock header %}
+        {% block main %}
+            <section class="slider">
+                <div class="swiper">
+                    <div class="swiper-wrapper">
+                        {% for slide in slider %}
+                            <div class="swiper-slide">
+                                <div class="slider__item" style="background: url({{ slide.image }})">
+                                    <div class="container">
+                                        <div class="slider__title">
+                                            {{ slide.title }}
+                                        </div>
+                                        <div class="slider__text">
+                                            {{ slide.text }}
+                                        </div>
+                                        <button class="slider__callback button button_white button_tranparent">Заполнить заявку</button>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="slider__pagination">
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </section>
+            <div class="about">
+                <div class="arrow-left about__arrow">
+                    <p class="about__text">
+                        Новые Горизонты — это удобный издательский сервис для начинающих авторов, с помощью которого Вы можете начать продавать
+                        свои книги уже сегодня!
+                    </p>
+                </div>
+                <div class="container">
+                    <div class="row about__content">
+                        {% for text in about %}
+                            <div class="col-lg-6 col-xl-4 {% if loop.first %} offset-xl-2 {% endif %}">
+                                {{ text | safe }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <section class="advantages">
+                <div class="arrow-title arrow-title_left">
+                    Наши преимущества
+                </div>
+                <div class="container">
+                    <div class="row">
+                        {% for adv in advantages %}
+                            <div class="col-lg-4">
+                                <div class="advantages__item">
+                                    <div class="advantages__icon">
+                                        <img src="./images/advantages/{{ loop.index }}.svg" alt="{{ adv.title }}">
+                                    </div>
+                                    <div class="advantages__title">{{ adv.title }}</div>
+                                    <div class="advantages__text">
+                                        {{ adv.text }}
+                                    </div>
+                                    <ul class="advantages__list">
+                                        {% for item in adv.list %}
+                                            <li>{{ item }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    <div class="advantages__more">{{ adv.boldText | safe }}</div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+            <section class="services">
+                <div class="arrow-title arrow-title_right">
+                    Пакеты издания
+                </div>
+                <div class="container">
+                    <div class="row">
+                        {% for service in services %}
+                            <div class="col-lg-4">
+                                <div data-micromodal-trigger="modal-1" class="services__item">
+                                    <div class="services__icon">
+                                        <img src="./images/services/{{ loop.index }}.svg" alt="">
+                                    </div>
+                                    <div class="services__title">{{ service.title }}</div>
+                                    <div class="services__text">{{ service.text }}</div>
+                                    <a class="services__link link">
+                                        <div>Подробнее</div>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+            <section class="start-sell">
+                <div class="arrow-title arrow-title_left">
+                    Чтобы начать продавать свою книгу
+                </div>
+                <div class="container">
+                    <div class="start-sell__list">
+                        {% for item in startSell %}
+                            <li>{{ item }}</li>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+            <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+                <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+                    <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+                        <header class="modal__header">
+                            <h2 class="modal__title" id="modal-1-title">
+                                Micromodal
+                            </h2>
+                            <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                        </header>
+                        <main class="modal__content" id="modal-1-content">
+                            <p>
+                                Try hitting the
+                                <code>tab</code>
+                                key and notice how the focus stays within the modal itself. Also,
+                                <code>esc</code>
+                                to close modal.
+                            </p>
+                        </main>
+                        <footer class="modal__footer">
+                            <button class="modal__btn modal__btn-primary">Continue</button>
+                            <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Close</button>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        {% endblock main %}
+        {% block footer %}{% endblock footer %}
+    </body>
+</html>
